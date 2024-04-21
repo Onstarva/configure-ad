@@ -25,11 +25,13 @@ This tutorial outlines the implementation of on-premises Active Directory within
 - Step 2
   Create a Domain Controller (DC) and Client
 - Step 3
-- Install Active Directory on DC and Create an Admin user 
+  Install Active Directory on DC and Create an Admin user 
 - Step 4
   Join Client VM to DC VM
 - Step 5
   Setting up for all users to connect to Client VM
+- Step 6
+  Creating a bunch of random users to attempt to login into Client VM
 
 <h2>Deployment and Configuration Steps</h2>
 
@@ -89,4 +91,17 @@ Now you will join Client VM to DC. Go back DC->Networking and copy the NIC Priva
 <p>
 Log into Client VM. Right click Start->Systems->Remote Desktop->User Accounts->Add..type in the big open text box Domain users->Check Name and click Ok.
 </p>
+<br />
+
+<p>
+
+![Script](https://github.com/Onstarva/configure-ad/assets/166679644/584e0e2f-f5b9-4d30-814c-cd125bfe1d32)
+![Random users created](https://github.com/Onstarva/configure-ad/assets/166679644/3639188c-9681-4825-af32-30367c742616)
+![Randomly Created Users](https://github.com/Onstarva/configure-ad/assets/166679644/eb1b3181-6d3b-4d55-a12c-f88367bf6883)
+
+
+</p>
+<p>
+Next we will creat multiple users to login into Client VM. First log into DC as an admin. Open powershell as an admin by going search bar and enter powershell_ise Right click and open it as admin. At the top of powershell click new script and paste the contents of this script found here https://github.com/joshmadakor1/AD_PS/blob/master/Generate-Names-Create-Users.ps1 into the open space. You can edit how many accounts are made by changing the number at the top of the script. Click Run Script and a bunch of accounts will start to be made, it's 10000 by default if you don't change the number. Now if you go back into Active Directory _EMPLOYEES, refresh the folder and all the user names will appear in the folder. You can take any of these user profile names and login into Client VM with Password1 as the password.
+</p>  
 <br />
