@@ -3,7 +3,7 @@
 </p>
 
 <h1>On-premises Active Directory Deployed in the Cloud (Azure)</h1>
-This tutorial outlines the implementation of on-premises Active Directory within Azure Virtual Machines.<br />
+This tutorial outlines the implementation of on-premises Active Directory within Azure Virtual Machines. Note that all usernames and passwords should be your own and not generic names.<br />
 
 
 <h2>Environments and Technologies Used</h2>
@@ -25,9 +25,11 @@ This tutorial outlines the implementation of on-premises Active Directory within
 - Step 2
   Create a Domain Controller (DC) and Client
 - Step 3
-- Install Active Directory on DC and join the Client to the domain 
+- Install Active Directory on DC and Create an Admin user 
 - Step 4
-  Create an example of multiple users able to login into the DC with powershell script
+  Join Client VM to DC VM
+- Step 5
+  Setting up for all users to connect to Client VM
 
 <h2>Deployment and Configuration Steps</h2>
 
@@ -54,10 +56,37 @@ Next we'll install and setup Active Directory. Login into DC. Server Manager sho
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+  
+![Active directory menu](https://github.com/Onstarva/configure-ad/assets/166679644/acb5bf3e-ddcf-439b-9814-a9c80b3a8e10)
+![Active Directory Folders](https://github.com/Onstarva/configure-ad/assets/166679644/6bd4dd01-28ca-443f-9aa9-98733c5ed89e)
+![Making an Admin user](https://github.com/Onstarva/configure-ad/assets/166679644/e9c22728-b0e0-4e20-8954-1a0250a72724)
+
+
 </p>
 <p>
-Next you will want to create an admin user. Once logged in, go Server Manager->Tools->Active Directory Users and Computers. 
+Next you will want to create an admin user. Once logged in, go Server Manager->Tools->Active Directory Users and Computers. Right Click the server domain->New->Organization Unit and create a folder called _EMPLOYEES("_" is for easy tracking folder). Make another one called _ADMINS. Click _ADMINS folder and right click->NEW->USER and enter your name and user logon name. Set your password and finish. Next Right Click your new username and go to Properties->Memeber of->Add.. and type domain in the large open text space. Click check names to see a list of domains and click Domain Admins to add that group permission your account. Now log out of DC and log back in as your admin user account. Note you will be using the domain name followed by your username.
+</p>
+<br />
 
+<p>
+  
+![Setting DNS for Client VM](https://github.com/Onstarva/configure-ad/assets/166679644/5af31360-118a-4de4-a079-01bc7c0ef638) 
+![Connecting Client to DC](https://github.com/Onstarva/configure-ad/assets/166679644/80d5dfd1-5bb9-4c76-9fa6-32f66dc40add)
+
+
+</p>
+<p>
+Now you will join Client VM to DC. Go back DC->Networking and copy the NIC Private IP:#. Go to VM->Client VM->Networking->Network Interface:Client-#->DNS Servers->Custom and paste the IP into DNS servers and save. Reset Client VM in Azure portal. Log in to Client VM. Right click windows->Settings->Rename this PC->Change-> click Domain and enter the Domain name you made from DC. Example "mydomain.com" and hit okay. A prompt will appear and enter the username and password of your admin account. The Client VM will restart. Now login to Client with you admin account since both DC and Client VM are now connected.
+<p>
+<br />
+
+<p>
+
+![Domain users](https://github.com/Onstarva/configure-ad/assets/166679644/33bf621c-d220-4344-8868-ed4a82ddc322)
+
+
+</p>
+<p>
+Log into Client VM. Right click Start->Systems->Remote Desktop->User Accounts->Add..type in the big open text box Domain users->Check Name and click Ok.
 </p>
 <br />
