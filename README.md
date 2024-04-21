@@ -30,8 +30,8 @@ This tutorial outlines the implementation of on-premises Active Directory within
   Join Client VM to DC VM
 - Step 5
   Setting up for all users to connect to Client VM
-- Step 6
-  Creating a bunch of random users to attempt to login into Client VM
+- Step 6 (Extra)
+  Creating a bunch of random users to login into Client VM
 
 <h2>Deployment and Configuration Steps</h2>
 
